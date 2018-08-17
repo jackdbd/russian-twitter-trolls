@@ -1,36 +1,33 @@
-# russian-twitter-trolls
+# GraphQL server
 
+GraphQL server connected to a Neo4j database.
 
-This project was created with [Apollo Launchpad](https://launchpad.graphql.com)
+Don't forget to start the Neo4j database with `sudo service neo4j start`.
 
-You can see the original pad at [https://launchpad.graphql.com/n07kl7787](https://launchpad.graphql.com/n07kl7787)
+### Installation
 
-### Quick start guide
+Install dependencies and use Webpack to build `public/bundle.js`.
 
-```bash
-npm install
-export NEO4J_USER=<your value here>
-export NEO4J_PASSWORD=<your value here>
-export NEO4J_URI=<your value here>
-npm start
+```shell
+yarn install
+yarn build
 ```
 
+### Environment variables
 
-### App secrets
+Either create a `.env` file and define your environment variables there, or define them from a terminal.
 
-This pad contains some secret keys which you will need to provide as environment variables in order to run it locally (the secret values have been removed for your security). Secret values are often used for things like database passwords and private cryptographic keys.
-
-Here is a list of the secrets in this project for which you will need to provide values: NEO4J_USER, NEO4J_PASSWORD, NEO4J_URI.
-
-You can set them by exporting them as environment variables in your shell: 
-
-```sh
-export NEO4J_USER=<your value here>
+```shell
+export NEO4J_USERNAME=<your value here>
 export NEO4J_PASSWORD=<your value here>
 export NEO4J_URI=<your value here>
+export EXPRESS_PORT=3000
 ```
 
+### Usage
 
-Happy hacking!
+Launch the server:
 
-The Apollo team :)
+```shell
+yarn serve
+```

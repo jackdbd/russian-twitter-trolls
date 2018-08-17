@@ -1,32 +1,41 @@
-import express from 'express';
-import { graphqlExpress, graphiqlExpress } from 'graphql-server-express';
-import bodyParser from 'body-parser';
+require("dotenv").load();
+import express from "express";
+import bodyParser from "body-parser";
+import { graphqlExpress, graphiqlExpress } from "apollo-server-express";
+import { schema, rootValue, context } from "./schema";
 
-import { schema, rootValue, context } from './schema';
-
-const PORT = 3000;
-const server = express();
-
-if (typeof process.env.NEO4J_USER === 'undefined') {
-  console.warn('WARNING: process.env.NEO4J_USER is not defined. Check README.md for more information');
+if (!process.env.EXPRESS_PORT) {
+  throw new Error("Please setup PORT in .env file.");
 }
-if (typeof process.env.NEO4J_PASSWORD === 'undefined') {
-  console.warn('WARNING: process.env.NEO4J_PASSWORD is not defined. Check README.md for more information');
+const EXPRESS_PORT = process.env.EXPRESS_PORT;
+
+if (!process.env.NEO4J_USERNAME) {
+  throw new Error("Please setup NEO4J_USERNAME in .env file.");
 }
-if (typeof process.env.NEO4J_URI === 'undefined') {
-  console.warn('WARNING: process.env.NEO4J_URI is not defined. Check README.md for more information');
+if (!process.env.NEO4J_PASSWORD) {
+  throw new Error("Please setup NEO4J_PASSWORD in .env file.");
+}
+if (!typeof process.env.NEO4J_URI) {
+  throw new Error("Please setup NEO4J_URI in .env file.");
 }
 
-server.use('/graphql', bodyParser.json(), graphqlExpress(request => ({
-  schema,
-  rootValue,
-  context: context(request.headers, process.env),
-})));
+const app = express();
 
-server.use('/graphiql', graphiqlExpress({
-  endpointURL: '/graphql',
-  query: `# Welcome to GraphiQL
+app.use(
+  "/graphql",
+  bodyParser.json(),
+  graphqlExpress(request => ({
+    schema,
+    rootValue,
+    context: context(request.headers, process.env)
+  }))
+);
 
+app.use(
+  "/graphiql",
+  graphiqlExpress({
+    endpointURL: "/graphql",
+    query: `# Welcome to GraphiQL
 {
 	Hashtag(tag:"politics") {
     tag 
@@ -34,10 +43,10 @@ server.use('/graphiql', graphiqlExpress({
       text
     }
   }
-}`,
-}));
+}`
+  })
+);
 
-server.listen(PORT, () => {
-  console.log(`GraphQL Server is now running on http://localhost:${PORT}/graphql`);
-  console.log(`View GraphiQL at http://localhost:${PORT}/graphiql`);
+app.listen(EXPRESS_PORT, () => {
+  console.log(`View GraphiQL at http://localhost:${EXPRESS_PORT}/graphiql`);
 });
