@@ -1,4 +1,4 @@
-## Data import and Scraping
+# Data import and Scraping.
 
 This directory contains Jupyter notebooks for scraping Tweet data from Internet Archive and importing into Neo4j.
 
