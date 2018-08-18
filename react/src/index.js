@@ -1,17 +1,14 @@
 import React from "react";
-
-
 import App from "./components/App";
-
-import { ApolloClient } from 'apollo-client';
-import { createHttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloProvider } from 'react-apollo';
-import { render } from 'react-dom';
+import { ApolloClient } from "apollo-client";
+import { createHttpLink } from "apollo-link-http";
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { ApolloProvider } from "react-apollo";
+import { render } from "react-dom";
 
 const client = new ApolloClient({
-  link: createHttpLink({ uri: 'https://n07kl7787.lp.gql.zone/graphql' }),
-  cache: new InMemoryCache(),
+  link: createHttpLink({ uri: "https://n07kl7787.lp.gql.zone/graphql" }),
+  cache: new InMemoryCache()
 });
 
 const Root = () => (
@@ -32,6 +29,5 @@ const styles = {
     maxWidth: "600px"
   }
 };
-
 
 render(<Root />, document.getElementById("root"));

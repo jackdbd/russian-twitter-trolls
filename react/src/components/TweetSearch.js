@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { Input, Button } from 'semantic-ui-react';
+import { Input, Button } from "semantic-ui-react";
 
 class TweetSearch extends Component {
-
   constructor(props) {
     super(props);
 
@@ -16,11 +15,11 @@ class TweetSearch extends Component {
     this.props.setSearchTerm(this.state.value);
   };
 
-  handleChange = (event) => {
+  handleChange = event => {
     if (event) {
       this.setState({
         value: event.target.value
-      })
+      });
     }
   };
 
@@ -31,11 +30,12 @@ class TweetSearch extends Component {
         onChange={this.handleChange}
         value={value}
         fluid
-        placeholder="Hashtag">
+        placeholder="Hashtag"
+      >
         <input />
         <Button onClick={this.setTitle}>Search</Button>
       </Input>
-    )
+    );
   }
 }
 
