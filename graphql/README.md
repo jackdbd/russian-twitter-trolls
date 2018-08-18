@@ -52,6 +52,20 @@ Launch the GraphQL API server:
 yarn serve
 ```
 
+You can use [Introspection](https://graphql.org/learn/introspection/) to ask the GraphQL API server for information about what queries it supports.
+
+```
+{
+  __schema {
+    types {
+      name
+    }
+  }
+}
+```
+
+Otherwise you can have a look at [neo4j_import.ipynb](https://github.com/jackdbd/russian-twitter-trolls/blob/master/import/neo4j_import.ipynb), the Jupyter notebook used to define and export the `typeDefs.graphql` file.
+
 
 ### Credits
 
