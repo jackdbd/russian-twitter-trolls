@@ -1,33 +1,58 @@
-# GraphQL server
+# Russian Twitter Trolls GraphQL API Server
 
 GraphQL server connected to a Neo4j database.
 
-Don't forget to start the Neo4j database with `sudo service neo4j start`.
+!["GraphQL API server"](../img/graphiql.png)
+
 
 ### Installation
 
-Install dependencies and use Webpack to build `public/bundle.js`.
+This project was tested with Node `v10.9.0`. Some features might not available with older version. You may want to use [nvm](https://github.com/creationix/nvm) to manage your Node.js versions.
+
+Install all dependencies with:
 
 ```shell
-yarn install
+yarn install  # or simply, yarn
+```
+
+Build the server bundle (`public/bundle.js`) with [Webpack](https://webpack.js.org/):
+
+```
 yarn build
 ```
 
+
 ### Environment variables
 
-Either create a `.env` file and define your environment variables there, or define them from a terminal.
+The GraphQL API server code requires you to set some environment variables.
+
+You can create a `.env` file in the root of *this* component (i.e. `graphql/`) and define your environment variables there; they will be loaded with [dotenv](https://github.com/motdotla/dotenv).
+
+In alternative, you can set the environment variables from a terminal. Here is an example:
 
 ```shell
-export NEO4J_USERNAME=<your value here>
-export NEO4J_PASSWORD=<your value here>
-export NEO4J_URI=<your value here>
+export NEO4J_USERNAME=neo4j
+export NEO4J_PASSWORD=password
+export NEO4J_URI=bolt://localhost:7687
 export EXPRESS_PORT=3000
 ```
 
+
 ### Usage
 
-Launch the server:
+If you installed Neo4j on your machine, check that it's running:
+
+```sh
+sudo service neo4j status
+```
+
+Launch the GraphQL API server:
 
 ```shell
 yarn serve
 ```
+
+
+### Credits
+
+This project was bootstrapped with [Apollo Launchpad](https://github.com/apollographql/awesome-launchpad).

@@ -1,32 +1,48 @@
-# Russian Twitter Trolls In Neo4j
+# Russian Twitter Trolls with Neo4j, GraphQL and React
+
+This project comprises of 3 components:
+
+1. `/import` - A set of jupyter notebooks (Python):
+    - `find_avail_archived.ipynb` - Query the Internet Archive's [Wayback Machine API](https://archive.org/help/wayback_api.php) for available Twitter user page caches;
+    - `scrape_tweets.ipynb` - Scrape tweets from Internet Archive cached pages;
+    - `neo4j_import.ipynb` - Import tweets into Neo4j, define a GraphQL schema and export it as `typeDefs.graphql` file.
+2. `/graphql` - A GraphQL API server (Javascript) connected to Neo4j.
+3. `/react` - A React app (Javascript) connected to the GraphQL API.
+
+*Please refer to each respective README for more details.*
 
 
-## Data import - `/import`
+### Installation
 
-The `/import` directory contains 3 Jupyter Notebooks:
+You will need to connect to a Neo4j database in this project.
 
-* `find_avail_archived.ipynb` - Search Internet Archive's Wayback API for available Twitter user page caches
-* `scrape_tweets.ipynb` - Scrape tweets from Internet Archive cached pages
-* `neo4j_import.ipynb` - Import tweets into Neo4j
+If you are on a Debian-based distro (I use Xubuntu) and you want to develop on your machine, you can install Neo4j Community Edition following [this guide](https://neo4j.com/docs/operations-manual/current/installation/linux/debian/).
 
-## GraphQL API - `/graphql`
+Neo4j requires Java 8. If you have several Java versions installed, you can manage them with:
 
-For convenience a GraphQL API is available for querying the data in Neo4j.
+```shell
+sudo update-alternatives --config java
+```
 
-![](img/graphiql.png)
+Start the Neo4j daemon with:
 
+```sh
+sudo service neo4j start
+```
 
-## Simple React Search app - `/react`
+Check that Neo4j is up and running by visiting:
 
-A simple React web app is available for searching tweets (currently by hashtag). The React app uses the GraphQL API.
+```
+http://localhost:7474/browser/
+```
 
-![](img/react.png)
 
 ### Neo4j
 
 *Datamodel*
 
-![](img/datamodel.png)
+!["Neo4j Datamodel"](img/datamodel.png)
+
 
 *Interesting Queries*
 
@@ -38,7 +54,7 @@ OPTIONAL MATCH (t)-[:HAS_LINK]->(l:Link)
 RETURN *
 ~~~
 
-![](img/ten_gop.png)
+!["Tweets by TEN_GOP"](img/ten_gop.png)
 
 ~~~
 // What hashtags are used by the most users in the dataset
@@ -135,3 +151,7 @@ RETURN COUNT(t) AS num, head(split(url, "/")) ORDER BY num DESC LIMIT 10
 └─────┴─────────────────────────┘
 ~~~
 
+
+### Credits
+
+This is a fork from [William Lyon's repo](https://github.com/johnymontana/russian-twitter-trolls). Don't miss his [excellent tutorial](https://www.lyonwj.com/2017/11/12/scraping-russian-twitter-trolls-python-neo4j/) for a thorough explanation of the project.
